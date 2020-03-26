@@ -19,13 +19,15 @@ int sockMerchant(int NumberOfSocksInTheArray, int* ArrayOfSocks) {
 
 int main()
 {
-    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+    FILE* TestFile = fopen(getenv("OUTPUT_PATH"), "w");
 
-    char* n_endptr;
-    char* n_str = readline();
-    int CurrentNumberOfSocks = strtol(n_str, &n_endptr, 10);
+    char* EndOfLongInteger;
+    char* CurrentLine = readline();
+    int CurrentNumberOfSocks = strtol(CurrentLine, &EndOfLongInteger, 10);
 
-    if (n_endptr == n_str || *n_endptr != '\0') { exit(EXIT_FAILURE); }
+    if (EndOfLongInteger == CurrentLine || *EndOfLongInteger != '\0') { 
+		exit(EXIT_FAILURE); 
+	}
 
     char** ar_temp = split_string(readline());
 
@@ -44,9 +46,9 @@ int main()
 
     int result = sockMerchant(n, ar);
 
-    fprintf(fptr, "%d\n", result);
+    fprintf(TestFile, "%d\n", result);
 
-    fclose(fptr);
+    fclose(TestFile);
 
     return 0;
 }
