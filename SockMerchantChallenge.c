@@ -9,7 +9,7 @@
 #include <string.h>
 
 char* readline();
-char** split_string(char*);
+char** SplitString(char*);
 
 // Complete the sockMerchant function below.
 int sockMerchant(int NumberOfSocksInTheArray, int* ArrayOfSocks) {
@@ -42,7 +42,8 @@ int main()
 
     int CurrentNumberOfSocks = GetTheCurrentNumberOfSocksInTheArray(TestFile);
 
-    char** ar_temp = split_string(readline());
+
+    char** ar_temp = SplitString(readline());
 
     int* ar = malloc(CurrentNumberOfSocks * sizeof(int));
 
@@ -98,22 +99,37 @@ char* readline() {
     return data;
 }
 
-char** split_string(char* str) {
-    char** splits = NULL;
-    char* token = strtok(str, " ");
+/* Oh jeez, let's see what this does
 
+	Looks like it splits the inputstring into an array of strings called splits
+	
+	First thing, let's rename that garbage name
+ */
+char** SplitString(char* InputString) {
+    char** ArrayOfStrings = NULL;
+	
+    char* token = strtok(InputString, " "); 
+	/* So we split the input string into tokens, delimited by spaces
+	
+	But why?
+	*/
     int spaces = 0;
 
     while (token) {
-        splits = realloc(splits, sizeof(char*) * ++spaces);
-        if (!splits) {
-            return splits;
+        // So that we can realloc?
+        
+		ArrayOfStrings = realloc(ArrayOfStrings, sizeof(char*) * ++spaces);
+		// sizeof(char*) == 4
+		
+		if (!ArrayOfStrings) {
+            return ArrayOfStrings;
         }
 
-        splits[spaces - 1] = token;
+        ArrayOfStrings[spaces - 1] = token;
 
+		// What is this?
         token = strtok(NULL, " ");
     }
 
-    return splits;
+    return ArrayOfStrings;
 }
