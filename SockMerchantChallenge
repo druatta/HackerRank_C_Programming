@@ -13,21 +13,34 @@ char** split_string(char*);
 
 // Complete the sockMerchant function below.
 int sockMerchant(int NumberOfSocksInTheArray, int* ArrayOfSocks) {
-    
+    return 0;
+}
 
+int GetTheCurrentNumberOfSocksInTheArray(FILE* TestFile) {
+	char* EndOfLongInteger;
+	char* CurrentLine = readline();
+	int BaseTen = 10;
+	int CurrentNumberOfSocks = strtol(CurrentLine, &EndOfLongInteger, BaseTen);
+	
+	char Zero = '\0';
+	/* What does the following code do?
+	
+	Does it check to see what the end of the long integer is, and make
+	sure it's zero? Why do this?
+	
+	 */
+	if (EndOfLongInteger == CurrentLine || *EndOfLongInteger != Zero) {
+		exit(EXIT_FAILURE);
+	}
+	
+	return CurrentNumberOfSocks;
 }
 
 int main()
 {
     FILE* TestFile = fopen(getenv("OUTPUT_PATH"), "w");
 
-    char* EndOfLongInteger;
-    char* CurrentLine = readline();
-    int CurrentNumberOfSocks = strtol(CurrentLine, &EndOfLongInteger, 10);
-
-    if (EndOfLongInteger == CurrentLine || *EndOfLongInteger != '\0') { 
-		exit(EXIT_FAILURE); 
-	}
+    int CurrentNumberOfSocks = GetTheCurrentNumberOfSocksInTheArray(TestFile);
 
     char** ar_temp = split_string(readline());
 
@@ -44,9 +57,9 @@ int main()
     }
 
 
-    int result = sockMerchant(n, ar);
+    int NumberOfMatchingPairsOfSocks = sockMerchant(CurrentNumberOfSocks, ar);
 
-    fprintf(TestFile, "%d\n", result);
+    fprintf(TestFile, "%d\n", NumberOfMatchingPairsOfSocks);
 
     fclose(TestFile);
 
